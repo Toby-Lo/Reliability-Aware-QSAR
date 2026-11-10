@@ -6,17 +6,13 @@ Purpose:
   to identify which seed configuration is most representative (e.g., closest to mean).
   
 Usage:
-  python step11_training_summary.py --run-dir models_out/qsar_ml_20260410_124055
   python step11_training_summary.py --run-dir models_out/qsar_ml_20260410_124055 \\
                                     --output results/seed_metrics_summary.csv \\
                                     --metrics mcc,f1,accuracy \\
                                     --sort-by RFC_mcc \\
                                     --stage cv
 
-python scripts/step11_training_summary.py --run-dir models_out/qsar_ml_20260412_162829 \
---stage cv --sort-metric RFC_mcc
-
-
+python scripts/step11_training_summary.py --run-dir models_out/qsar_ml_20260412_162829 --stage cv --sort-metric RFC_mcc
 """
 
 import argparse

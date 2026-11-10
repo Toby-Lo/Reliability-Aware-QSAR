@@ -285,7 +285,6 @@ def aggregate_metrics_by_model(
     sub_df = metric_df[metric_df["metric"] == metric_name].copy()
     if sub_df.empty: return pd.DataFrame()
     
-    # Use explicit summary CSVs when available to keep plotted mean/std identical to tables.
     global_df = None
     global_mode = None
     if error_type == "std":
@@ -426,20 +425,17 @@ def plot_back_to_back_bars(
                     error_val = 0.0
             mcc_stats.append({"model": model, "mcc_mean": mean_val, "mcc_error": error_val})
     
-    # 降序排列：MCC 从大到小
+    # Sort in descending order: MCC
     mcc_df = pd.DataFrame(mcc_stats).sort_values("mcc_mean", ascending=False).reset_index(drop=True)
     
-    # 为了让 Matplotlib 的 barh 从上往下画时呈现降序，将 DataFrame 逆序传入
     mcc_df_plot = mcc_df.iloc[::-1].reset_index(drop=True)
     
     models = mcc_df_plot["model"].tolist()
     y_pos = np.arange(len(models))
     colors = [global_color_map.get(m, (0.7, 0.7, 0.7)) for m in models]
 
-    # 3. 构建画布：为中央走廊和下方的 X 轴标签留出刚好合适的间距
     fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(11.5, 6.0), sharey=True, dpi=dpi)
     
-    # 明确物理归位两个子图的坐标朝向，防止被图 D 更改的全局设置带偏
     ax_left.yaxis.tick_left()
     ax_right.yaxis.tick_left()
     ax_left.xaxis.tick_bottom()
@@ -449,58 +445,46 @@ def plot_back_to_back_bars(
 
     bar_height = 0.85 
 
-    # 4. 绘制左侧：MCC RANKING (条形向左延伸)
     stage_upper = "CROSS-VALIDATION" if stage.lower() == "cv" else "EXTERNAL TEST"
     bars_left = ax_left.barh(y_pos, mcc_df_plot["mcc_mean"], bar_height, color=colors, alpha=0.9, edgecolor='black', linewidth=0.8)
     
-    # 渲染子图标题
     ax_left.set_title(f"{stage_upper}: MCC Ranking", 
                       fontsize=11, fontweight='bold', pad=15)
-    ax_left.invert_xaxis()  # 反转 X 轴（1.0 在左，0 在右中央）
+    ax_left.invert_xaxis() 
     ax_left.set_xlim(1.0, 0) 
     ax_left.grid(axis='x', linestyle='--', alpha=0.3, zorder=0)
     
-    # 将 MCC 数值精准嵌入左侧 Bar 内部
     for i, val in enumerate(mcc_df_plot["mcc_mean"]):
         ax_left.text(val - 0.02, i, f"{val:.{LEGEND_DECIMALS}f}", va='center', ha='left',
                      fontsize=10, fontweight='bold', color="#111111", zorder=5)
 
-    # 5. 绘制右侧：STABILITY RANKING (条形向右延伸)
     error_label = "STD" if error_type == "std" else "CI95"
     bars_right = ax_right.barh(y_pos, mcc_df_plot["mcc_error"], bar_height, color=colors, alpha=0.9, edgecolor='black', linewidth=0.8)
     
-    # 渲染子图标题
     ax_right.set_title(f"{stage_upper}: Stability Ranking", 
                        fontsize=11, fontweight='bold', pad=15)
     
-    # 安全缩减空白，卡在最大值的1.12倍
     max_err = mcc_df_plot["mcc_error"].max()
     ax_right.set_xlim(0, max_err * 1.12 + 0.005)
     ax_right.grid(axis='x', linestyle='--', alpha=0.3, zorder=0)
     
-    # 将 Stability 数值嵌入右侧 Bar 内部
     for i, val in enumerate(mcc_df_plot["mcc_error"]):
         ax_right.text(val - 0.003, i, f"{val:.{LEGEND_DECIMALS}f}", va='center', ha='right',
                      fontsize=10, fontweight='bold', color="#111111", zorder=5)
 
-    # 6. 配置核心 Y 轴刻度位置与标签显示
     ax_left.set_yticks(y_pos)
-    ax_left.set_yticklabels([]) # 移除轴线默认自带的边缘标签文本
+    ax_left.set_yticklabels([]) 
     
-    # 显式修正中央走廊两侧的刻度线挂载
     ax_left.yaxis.tick_right()
     ax_right.yaxis.tick_left()
 
-    # 在中央走廊的正中心绘制模型名称
     for i, model_name in enumerate(models):
         ax_left.text(-0.13, i, model_name, ha='center', va='center', 
                      fontsize=11, fontweight='bold', color='#222222')
 
-    # 中央走廊顶部追加列名标识 "Model Name"
     ax_left.text(-0.13, len(models) - 0.3, "Model Name", ha='center', va='bottom', 
                  fontsize=11, fontweight='bold', color='black')
 
-    # 7. 确保 X 轴坐标标签严格放置在最下方（Bottom）
     ax_left.xaxis.set_ticks_position('bottom')
     ax_right.xaxis.set_ticks_position('bottom')
     ax_left.xaxis.set_label_position('bottom')
@@ -509,22 +493,18 @@ def plot_back_to_back_bars(
     ax_left.set_xlabel("Mathews Correlation Coefficient (MCC)", fontsize=10, fontweight='bold', labelpad=8)
     ax_right.set_xlabel(f"Stability Standard Deviation ({error_label})", fontsize=10, fontweight='bold', labelpad=8)
 
-    # 8. 坐标轴线条可见性精细打磨（为左右两图加上全包围黑色边框）
     for ax in [ax_left, ax_right]:
         for spine in ax.spines.values():
             spine.set_visible(True)
             spine.set_linewidth(1.2)
             spine.set_color('black')
 
-    # 标出 Y 轴刻度短线：向中央走廊的外侧指示对应模型
     ax_left.tick_params(axis='y', which='both', direction='out', length=4, width=1.2, color='black')
     ax_right.tick_params(axis='y', which='both', direction='out', length=4, width=1.2, color='black')
     
-    # 确保 X 轴刻度短线也足够清晰
     ax_left.tick_params(axis='x', which='both', direction='out', length=4, width=1.2, color='black')
     ax_right.tick_params(axis='x', which='both', direction='out', length=4, width=1.2, color='black')
 
-    # 9. 保存矢量图结构
     output_path = output_dir / f"{stage}_plot_A_back_to_back.svg"
     fig.savefig(output_path, format="svg", bbox_inches='tight')
     print(f"[OK] Saved clean presentation-ready plot A with strict Cambria typography: {output_path}")
@@ -769,7 +749,6 @@ def plot_model_heatmap(
     ax.set_xticklabels([m.upper() for m in metrics_to_plot], fontsize=11, fontweight='bold')
     ax.set_yticklabels(models, fontsize=11, fontweight='bold')
     
-    # Turn off Matplotlib's default outer spines, as we perfectly drew a pure black border using Rectangle in the previous step
     for spine in ax.spines.values():
         spine.set_visible(False)
     ax.tick_params(top=False, bottom=False, left=False, right=False)

@@ -19,7 +19,7 @@ python scripts/step21_model_robustness.py \
     --n-permutations 500 \
     --input data/NSD2/nsd2_final_dataset_feature_fingerprint.csv
 
-Only Plots
+# Plots-only
 python scripts/step21_model_robustness.py \
   --run-dir models_out/qsar_ml_20260412_162829 \
   --split-seed 12345 \
@@ -939,7 +939,6 @@ if __name__ == "__main__":
 
 # %%
 # Plotting-only cell (interactive)
-####################
 # This block is intentionally self-contained so you can run ONLY this cell in an IDE.
 try:
     from IPython import get_ipython  # type: ignore
@@ -988,7 +987,7 @@ if _IN_IPYTHON:
         }
     )
 
-    # --- Inputs (edit these) ---
+    # Inputs
     RUN_DIR = Path("../models_out/qsar_ml_20260412_162829") ### relative path because in notebook
     SPLIT_SEED = 12345
     MODEL_KEY = "SVC"
@@ -1048,7 +1047,6 @@ if _IN_IPYTHON:
     ax.set_xlabel(METRIC_LABEL)
     ax.set_ylabel("Count")
 
-    # 去掉冗余标题?
     # ax.set_title(...)
 
     plt.tight_layout()

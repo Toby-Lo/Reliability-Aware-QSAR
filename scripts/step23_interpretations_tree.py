@@ -2,11 +2,9 @@
 """
 **Tree-model** SHAP interpretation for step10_qsar_ml.py outputs.
 
-This script is designed for the artifact layout produced by:
-  ./scripts/step10_qsar_ml.py
+This script is designed for the artifact layout produced by: ./scripts/step10_qsar_ml.py
 
-It consumes the "SHAP-ready" bundles exported by step10 under:
-  <run_dir>/split_seed_<N>/data/shap/
+It consumes the "SHAP-ready" bundles exported by step10 under: <run_dir>/split_seed_<N>/data/shap/
 
 and computes SHAP values for tree models (RFC/ETC/XGBC) on the external set.
 
@@ -453,7 +451,6 @@ if __name__ == "__main__":
 
 # %%
 # Plotting-only cell (interactive)
-#
 # This block is intentionally self-contained so you can run ONLY this cell in an IDE.
 from typing import Any, Dict, List, Optional, Tuple
 from pathlib import Path
@@ -506,7 +503,7 @@ if _IN_IPYTHON:
         "axes.grid": False,
         "lines.linewidth": 1.2,
     })
-    # --- Inputs (edit these) ---
+    # Inputs 
     OUT_DIR = Path("../models_out/qsar_ml_20260409_222051/split_seed_42/shap_analysis") ### relative path
     MODEL_KEY = "ETC"
 
@@ -554,9 +551,9 @@ if _IN_IPYTHON:
     try:
         n_heat = min(PLOT_STYLE["heatmap_samples"], len(X_df))
 
-        # 只取 top features
+        # top features
         mean_abs_shap = np.abs(shap_values).mean(axis=0)
-        top_idx = np.argsort(mean_abs_shap)[::-1][:15]   # 控制在15以内
+        top_idx = np.argsort(mean_abs_shap)[::-1][:15]
 
         shap_sub = shap_values[:n_heat][:, top_idx]
         X_sub = X_df.iloc[:n_heat, top_idx]
@@ -568,7 +565,6 @@ if _IN_IPYTHON:
             feature_names=feature_sub,
             )
 
-        #  动态高度
         fig_height = 0.35 * len(feature_sub) + 2
         fig = plt.figure(figsize=(8, fig_height))
 
@@ -580,7 +576,6 @@ if _IN_IPYTHON:
 
         plt.title(f"{MODEL_KEY} | SHAP Heatmap", fontsize=11, pad=10)
 
-        # 强制优化 y 轴
         plt.gca().tick_params(axis='y', labelsize=8)
 
         plt.tight_layout()

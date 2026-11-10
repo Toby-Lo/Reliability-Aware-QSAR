@@ -169,7 +169,6 @@ def load_merged_data(input_file: Path, logger: logging.Logger) -> pd.DataFrame:
         )
 
     # Normalize zinc_id to string to prevent precision/format issues downstream.
-    # (Upstream scripts should already do this, but step34 is a safety net.)
     before_dtype = str(df["zinc_id"].dtype)
     df["zinc_id"] = _normalize_id_as_string(df["zinc_id"], logger=logger)
     after_dtype = str(df["zinc_id"].dtype)
@@ -540,9 +539,7 @@ if _in_ipython():
     import seaborn as sns
     from sklearn.decomposition import PCA
 
-    # --- USER EDITABLE ---
     OUT_DIR = Path("../models_out/qsar_ml_20260412_162829/virtual_screening/ad_screening_results_20260415_113643")
-    # ---------------------
 
     PLOT_STYLE = {
         "font.family": "serif",

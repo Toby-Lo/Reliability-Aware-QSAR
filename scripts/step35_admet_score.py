@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Step35: ADMET scoring layer (NO hard filtering).
+Step35: ADMET scoring layer.
 
 This script merges ADMETlab 3.0 batch predictions onto QSAR/AD results and produces:
 - normalized endpoint scores in [0, 1]
@@ -88,10 +88,8 @@ ENDPOINTS: Tuple[EndpointSpec, ...] = (
     EndpointSpec("dili", ("DILI", "Drug-induced liver injury", "DILI (risk)", "DILI_risk"), "lower_better", "prob"),
 )
 
-# =========================
+
 # Tunable scoring config
-# =========================
-#
 # Component weights control the final ADMET score mixture.
 # By default we keep the original prompt weights (Abs/Dist/Met/Tox) and give Excretion weight 0.
 DEFAULT_COMPONENT_WEIGHTS: Dict[str, float] = {
@@ -588,11 +586,8 @@ if _IN_IPYTHON:
     import pandas as pd
     import matplotlib.pyplot as plt
 
-    # --- USER EDITABLE ---
-    # Point this to the output directory created by this script (admet_scoring_YYYYMMDD_HHMMSS)
     OUT_DIR = Path("../models_out/qsar_ml_20260412_162829/virtual_screening/ad_screening_results_20260419_140044/admet_scoring_20260419_173114/")
     OUT_PARQUET = OUT_DIR / "admet_scored.parquet"
-    # ---------------------
 
     if not OUT_PARQUET.exists():
         raise FileNotFoundError(f"Missing parquet: {OUT_PARQUET.resolve()}")

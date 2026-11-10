@@ -1,4 +1,4 @@
-"""Minimal ML-only QSAR training pipeline modeled"""
+"""ML-based QSAR training pipeline modeled"""
 
 import argparse
 import json

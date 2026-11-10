@@ -114,7 +114,7 @@ def plot_model_threshold_panel(seed: int,
     configure_plotting(font)
     fig, axes = plt.subplots(1, 3, figsize=(18, 5.2))
 
-    # ===== Panel 1: ROC & Youden's J =====
+    # Panel 1: ROC & Youden's
     oof_roc = oof_df[["FPR", "TPR"]].dropna().sort_values("FPR")
     axes[0].plot(oof_roc["FPR"], oof_roc["TPR"], color=color, linewidth=1.8, label="OOF ROC")
     if not ext_df.empty:
@@ -135,7 +135,7 @@ def plot_model_threshold_panel(seed: int,
     axes[0].set_ylim(0, 1.02)
     axes[0].legend(loc="lower right", frameon=False, fontsize=8)
 
-    # ===== Panel 2: PR with multiple threshold points =====
+    # Panel 2: PR with multiple threshold points
     oof_pr = oof_df[["Recall", "Precision"]].dropna().sort_values("Recall")
     axes[1].plot(oof_pr["Recall"], oof_pr["Precision"], color=color, linewidth=1.8, label="OOF PR")
     if not ext_df.empty:
@@ -163,7 +163,7 @@ def plot_model_threshold_panel(seed: int,
     axes[1].set_ylim(0, 1.02)
     axes[1].legend(loc="lower left", frameon=False, fontsize=7.5)
 
-    # ===== Panel 3: F1 & MCC vs Threshold =====
+    # Panel 3: F1 & MCC vs Threshold
     oof_thr = oof_df[["Threshold", "F1"]].dropna().sort_values("Threshold")
     axes[2].plot(oof_thr["Threshold"], oof_thr["F1"], color=color, linewidth=1.8, label="OOF F1")
     if not ext_df.empty:

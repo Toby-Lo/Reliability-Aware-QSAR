@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
 Linear-model SHAP interpretation for step10_qsar_ml.py outputs.
-
 Models supported:
   - LR  (Logistic Regression)
   - SVC (sklearn.svm.SVC)

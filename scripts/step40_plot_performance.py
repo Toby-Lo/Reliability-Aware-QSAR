@@ -65,12 +65,12 @@ POLAR_METRIC_ORDER = ["mcc", "f1", "accuracy", "precision", "recall"]
 CI_Z = 1.96
 LEGEND_DECIMALS = 3
 MODEL_COLORS = {
-    'ETC': '#B08B86',   # 莫兰迪肉粉/浅褐
-    'RFC': '#C3B083',   # 暗金/莫兰迪淡黄
-    'SVC': '#1F77B4',   # 核心高亮蓝色
-    'MLP': '#8F93B5',   # 莫兰迪紫灰/蓝灰
-    'XGBC': '#8AA68A',  # 莫兰迪豆绿/灰绿
-    'LR': '#A8829A'     # 莫兰迪暗紫/粉灰
+    'ETC': '#B08B86',   # pink
+    'RFC': '#C3B083',   # yellow
+    'SVC': '#1F77B4',   # blue
+    'MLP': '#8F93B5',   # grey
+    'XGBC': '#8AA68A',  # green
+    'LR': '#A8829A'     # purple
 }
 
 
@@ -107,7 +107,6 @@ def parse_args() -> argparse.Namespace:
 
 # %%
 def configure_plotting(font: str) -> None:
-    # Prefer Cambria for publication-style figures while keeping robust fallbacks.
     rcParams["font.family"] = "serif"
     rcParams["font.serif"] = [font, "Cambria", "Times New Roman", "DejaVu Serif"]
     rcParams["text.usetex"] = False
@@ -852,14 +851,13 @@ def plot_polar_metric_bars(
                     zorder=5,
                 )
 
-    ax.set_theta_offset(np.pi / 2.0)  # MCC sector around 12 o'clock
+    ax.set_theta_offset(np.pi / 2.0) 
     ax.set_theta_direction(-1)
     ax.set_xticks([])
     ax.set_ylim(0.0, 1.1)
-    ax.set_axis_off() # 移除默认轴
+    ax.set_axis_off()
 
-    # 添加自定义背景圈
-    radial_label_theta = np.deg2rad(36.0)  # 36° clockwise from top (with theta_direction=-1)
+    radial_label_theta = np.deg2rad(36.0)
     for r in [0.2, 0.4, 0.6, 0.8, 1.0]:
         r_pos = inner_radius + r * radial_scale
         ax.plot(np.linspace(0, 2*np.pi, 100), [r_pos]*100, color="gray", alpha=0.2, ls="--", lw=0.8)
@@ -873,7 +871,6 @@ def plot_polar_metric_bars(
             va="center",
         )
 
-    # 绘制指标标签 (在中心区域)
     for metric, theta in zip(POLAR_METRIC_ORDER, group_centers):
         label_text = METRIC_LABELS.get(metric, metric.upper())
         ax.text(theta, inner_radius - 0.07, label_text, ha="center", va="center",
@@ -883,16 +880,15 @@ def plot_polar_metric_bars(
     tick_positions = [inner_radius + v * radial_scale for v in tick_values]
     ax.set_yticks(tick_positions)
     ax.set_yticklabels([f"{v:.1f}" for v in tick_values], fontweight="semibold")
-    ax.set_rlabel_position(36) ## Move radial labels slightly away from the first metric sector
+    ax.set_rlabel_position(36) 
     ax.grid(True, axis="y", alpha=0.22, linewidth=0.8, color="#777777")
     ax.grid(False, axis="x")
-    # Emphasize the outer (1.0) ring in black.
+
     theta_full = np.linspace(0, 2 * np.pi, 720)
     ax.plot(theta_full, np.full_like(theta_full, tick_positions[-1]), color="black", linewidth=1.2, zorder=2)
     ax.set_facecolor("white")
     ax.spines["polar"].set_visible(False)
 
-    # Inner ring with metric labels.
     inner_circle = Circle((0.5, 0.5), 0.120, transform=ax.transAxes, facecolor="white", edgecolor="black", linewidth=1.0, zorder=10)
     ax.add_artist(inner_circle)
     for metric, theta in zip(POLAR_METRIC_ORDER, group_centers):

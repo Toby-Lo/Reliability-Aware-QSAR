@@ -267,10 +267,7 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     # A) Funnel
     ax = axes[0, 0]
     use = stage_df.dropna(subset=["n_compounds"]).copy()
-    # "QSAR + AD scored" is nearly identical to "Feature-ready compounds" in most runs
-    # (often differs by ~1 row due to invalid/missing entries), so hide it for cleaner funnel.
     use = use[use["stage"] != "QSAR + AD scored"].copy()
-    # "Feature-ready compounds" is also often identical to "Strict drug-like filter" after featurization.
     use = use[use["stage"] != "Feature-ready compounds"].copy()
     y = np.arange(len(use))
     vals = use["n_compounds"].astype(float).to_numpy()
@@ -318,11 +315,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     _, bins_c, _ = ax.hist(valid_ad, bins=args.bins, color="#B5A492", alpha=0.72, density=True, edgecolor="white", linewidth=0.4, log=args.log_scale)
     ax.axvline(float(np.mean(valid_ad)), linestyle="--", color="black", linewidth=1.0, label="Mean")
     
-    # 强制在 x 轴起始位置标出 0.3（或对应的 bins_c[0] 数据边界），并移除过近的其他刻度防止重叠
     xticks = ax.get_xticks()
     xticks = [t for t in xticks if t > bins_c[0] + 0.015 and t <= bins_c[-1]]
     ax.set_xticks([bins_c[0]] + xticks)
-    ax.set_xlim(bins_c[0], bins_c[-1])  # 必须在 set_xticks 之后调用，防止 Matplotlib 自动扩展边缘白边
+    ax.set_xlim(bins_c[0], bins_c[-1]) 
     ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: f"{x:.2f}"))
     
     ax.set_xlabel("AD Score")
@@ -348,11 +344,10 @@ def main(argv: Optional[Sequence[str]] = None) -> None:
     _, bins_d, _ = ax.hist(valid_final, bins=args.bins, color="#BD6B66", alpha=0.78, density=True, edgecolor="white", linewidth=0.4, log=args.log_scale)
     ax.axvline(float(np.mean(valid_final)), linestyle="--", color="black", linewidth=1.0, label="Mean")
     
-    # 强制 X 轴包含起始数据点，并确保如果是 0 则只显示整洁的 "0"
     xticks_d = ax.get_xticks()
     xticks_d = [t for t in xticks_d if t > bins_d[0] + 0.015 and t <= bins_d[-1]]
     ax.set_xticks([bins_d[0]] + xticks_d)
-    ax.set_xlim(bins_d[0], bins_d[-1])  # 必须在 set_xticks 之后调用，防止 Matplotlib 自动扩展边缘白边
+    ax.set_xlim(bins_d[0], bins_d[-1]) 
     ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, pos: "0" if np.isclose(x, 0, atol=1e-2) else f"{x:.2f}"))
     
     ax.set_xlabel("Final Score")

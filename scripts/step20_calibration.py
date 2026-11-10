@@ -683,13 +683,8 @@ if __name__ == "__main__":
 
 
 # %%
-# Plot calibration-only cell (interactive)
-# ##################
 # Plotting-only cell (interactive)
-#
 # Use this to iterate on figure styling without re-running calibration.
-#
-# It is intentionally self-contained so you can run ONLY this cell in an IDE.
 try:
     from IPython import get_ipython  # type: ignore
 
@@ -730,8 +725,8 @@ if _IN_IPYTHON:
         }
     )
 
-    # --- Inputs (edit these) ---
-    RUN_DIR = Path("../models_out/qsar_ml_20260412_162829") ### Relative path if run in IDE
+    # Inputs
+    RUN_DIR = Path("../models_out/qsar_ml_20260412_162829") ### Relative path
     SPLIT_SEED = 12345  ### adjust
     MODEL_KEY = "SVC"   ### adjust
     METHODS = ("sigmoid", "isotonic")
