@@ -2,6 +2,13 @@
 
 This repository contains an end-to-end QSAR and virtual screening workflow for binary activity prediction. The pipeline focuses on scaffold-aware training, post-hoc calibration, applicability-domain-aware ranking, and ADMET-based prioritization.
 
+
+
+# Workflow
+
+![workflow diagram for `Reliability-aware and interpretable machine learning framework for NSD2 inhibitor
+prioritization with scaffold-disjoint validation and molecular dynamics assessment` ](images/workflow.png)
+
 ## What It Covers
 
 - Data cleaning and basic exploratory analysis
@@ -193,7 +200,6 @@ Important outputs include:
 - Training and screening data are typically stored as CSV or Parquet tables.
 - Screening input should include `smiles` and compound identifiers such as `zinc_id` when available.
 - Most downstream scripts read from `models_out/qsar_ml_YYYYMMDD_HHMMSS/` and reuse artifacts from step10.
-
 
 ## Citation
 
