@@ -84,8 +84,7 @@ df_ic50 = df_ic50.dropna(subset=['standard_value'])
 
 # 3. Calculate pIC50
 df_ic50['pIC50'] = -np.log10(df_ic50['standard_value'] * 1e-9)
-# 过滤掉 pIC50 小于 3 的分子 
-# 1mM (pIC50=3) 已经是药物筛选中极低活性的极限了，低于这个值的分子没有统计意义
+# Filter out molecules with a pIC50 less than 3 
 df_ic50 = df_ic50[df_ic50['pIC50'] >= 3.0]
 
 # 4. Canonicalize SMILES and remove salts
@@ -141,7 +140,7 @@ mpl.rcParams.update({
     'axes.spines.top': False,
     'axes.grid': False,
 
-    'xtick.direction': 'out', #刻度线朝向
+    'xtick.direction': 'out', # Orientation of scale marks
     'ytick.direction': 'out',
 
     'savefig.dpi': 600,
@@ -166,7 +165,7 @@ sns.histplot(
     ax=ax0
 )
 
-# threshold line color and value ################
+# threshold line color and value
 ax0.axvline(6.0, color='#D62728', linestyle='--', linewidth=1.4)
 
 # legend
@@ -229,11 +228,11 @@ sns.scatterplot(
     legend=False
 )
 
-# Lipinski 阈值也改为红色虚线
+# Threshold of Lipinski Rules change to red
 ax2.axvline(500, color='#D62728', linestyle='--', linewidth=1.2)
 ax2.axhline(5, color='#D62728', linestyle=':', linewidth=1.2)
 
-# custom legend（统一在一个框里）
+# legend in a box
 legend_elements = [
     Line2D([0], [0], marker='o', color='w', label='Active',
            markerfacecolor=color_palette['Active'], markersize=6),
@@ -278,10 +277,10 @@ for n, ax in enumerate([ax0, ax1, ax2]):
     ax.tick_params(
         axis='both',
         which='both',
-        direction='out',   # 向外
-        length=4,          # 刻度长度
-        width=1.0,         # 刻度粗细
-        colors='black',    # 颜色
+        direction='out',
+        length=4,
+        width=1.0,
+        colors='black',
         top=False,
         right=False
     )
