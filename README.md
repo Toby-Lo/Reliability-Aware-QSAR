@@ -1,4 +1,4 @@
-# Robust QSAR via Nested Scaffold-Grouped Cross-Validation
+# Reliability-aware and interpretable machine learning framework for NSD2 inhibitor prioritization with scaffold-disjoint validation and molecular dynamics assessment
 
 This repository contains an end-to-end QSAR and virtual screening workflow for binary activity prediction. The pipeline focuses on scaffold-aware training, post-hoc calibration, applicability-domain-aware ranking, and ADMET-based prioritization.
 
