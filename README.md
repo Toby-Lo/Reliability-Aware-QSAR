@@ -17,6 +17,7 @@ prioritization with scaffold-disjoint validation and molecular dynamics assessme
 - Virtual screening preparation, inference, and post-ranking
 - ADMET scoring and weight-sensitivity analysis
 - Performance and screening-funnel visualization
+- Retrospective benchmarking, convergence diagnostics, and the other analyses added during peer review
 
 ## Repository Structure
 
@@ -24,6 +25,7 @@ prioritization with scaffold-disjoint validation and molecular dynamics assessme
 - `data/` - Input datasets and processed molecular feature tables
 - `env/` - Conda environment files
 - `scripts/` - Step-wise QSAR, calibration, AD, interpretation, and screening scripts
+- `revision_analyses/` - Analyses added during peer review, with their archived output
 - `models_out/` - Model artifacts, split-specific results, calibration files, AD outputs, and screening results
 - `figures/` - Generated figures and summary plots
 
@@ -177,6 +179,18 @@ python scripts/step36_weight_sensitivity_test.py \
 - `scripts/step41_threshold_analysis.py`: analyze threshold-dependent metrics.
 - `scripts/step42_vs_visualization.py`: create screening funnel figures and summary tables.
 
+## Revision Analyses
+
+`revision_analyses/` holds the analyses added to the manuscript during peer review, together
+with their archived output. These read a completed training run rather than creating one, and
+share their own helper module, so they sit apart from the step-wise pipeline. They cover the
+applicability-domain weight grid search, the property-matched putative-inactive benchmark and
+its docking counterpart, the trajectory convergence diagnostics, the paired tests between
+architectures, the size-descriptor ablation, the scaffold-aware learning curve, the
+autocorrelation-corrected MM/GBSA errors, and the ranking-weight simplex scan.
+`revision_analyses/README.md` describes each script, its output files, and the path
+configuration.
+
 ## Main Outputs
 
 The pipeline writes model and screening outputs under:
@@ -205,6 +219,6 @@ Important outputs include:
 
 - If you use this workflow, please cite the associated manuscript:
 
-- Reliability-Aware and Interpretable Virtual Screening under Scaffold-Shift Conditions Prioritizes Candidate NSD2 Inhibitors.
+- Reliability-aware and interpretable machine learning framework for NSD2 inhibitor prioritization with scaffold-disjoint validation and molecular dynamics assessment
 
 - The full citation will be updated after publication.
