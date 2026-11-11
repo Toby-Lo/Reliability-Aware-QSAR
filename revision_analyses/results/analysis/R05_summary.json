@@ -1,0 +1,75 @@
+{
+  "summary": {
+    "Full descriptor panel (published)": {
+      "n_descriptors": 20,
+      "n_features": 144,
+      "mcc_mean": 0.7257,
+      "mcc_sd": 0.1054,
+      "f1_mean": 0.9141,
+      "f1_sd": 0.0405,
+      "acc_mean": 0.8811,
+      "acc_sd": 0.0518,
+      "roc_mean": 0.942,
+      "roc_sd": 0.0294,
+      "pr_mean": 0.9764,
+      "pr_sd": 0.0129
+    },
+    "Size proxies removed": {
+      "n_descriptors": 13,
+      "n_features": 137,
+      "mcc_mean": 0.7152,
+      "mcc_sd": 0.0836,
+      "f1_mean": 0.9153,
+      "f1_sd": 0.0278,
+      "acc_mean": 0.8802,
+      "acc_sd": 0.037,
+      "roc_mean": 0.9412,
+      "roc_sd": 0.0304,
+      "pr_mean": 0.9763,
+      "pr_sd": 0.0129
+    },
+    "Fingerprints only": {
+      "n_descriptors": 0,
+      "n_features": 124,
+      "mcc_mean": 0.6995,
+      "mcc_sd": 0.0624,
+      "f1_mean": 0.9139,
+      "f1_sd": 0.0186,
+      "acc_mean": 0.8766,
+      "acc_sd": 0.0255,
+      "roc_mean": 0.9471,
+      "roc_sd": 0.0233,
+      "pr_mean": 0.9785,
+      "pr_sd": 0.0107
+    }
+  },
+  "tests": [
+    {
+      "comparison": "Full descriptor panel (published) vs Size proxies removed",
+      "mean_mcc_drop": 0.01044,
+      "ci_low": -0.01644,
+      "ci_high": 0.03954,
+      "p_ttest": 0.50262,
+      "p_wilcoxon": 0.625
+    },
+    {
+      "comparison": "Full descriptor panel (published) vs Fingerprints only",
+      "mean_mcc_drop": 0.02616,
+      "ci_low": -0.01788,
+      "ci_high": 0.06752,
+      "p_ttest": 0.2852,
+      "p_wilcoxon": 0.23242
+    }
+  ],
+  "size_desc": [
+    "MolWt",
+    "HeavyAtomCount",
+    "NumValenceElectrons",
+    "LabuteASA",
+    "RingCount",
+    "NumAromaticRings",
+    "NumAliphaticRings"
+  ],
+  "size_collinearity_median_abs_r": 0.7609729235719619,
+  "size_collinearity_max_abs_r": 0.9947839124750144
+}

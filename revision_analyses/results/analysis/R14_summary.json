@@ -1,0 +1,38 @@
+{
+  "external": {
+    "brier_raw_ext": [
+      0.08922168190142152,
+      0.02804594286884517
+    ],
+    "ece_raw_ext": [
+      0.07478760166075518,
+      0.016955514198329948
+    ]
+  },
+  "dev_oof": {
+    "isotonic": {
+      "brier_raw": 0.03171,
+      "brier_calibrated": 0.02631,
+      "ece_raw": 0.03892,
+      "ece_calibrated": 0.02232
+    },
+    "sigmoid": {
+      "brier_raw": 0.03171,
+      "brier_calibrated": 0.03593,
+      "ece_raw": 0.03892,
+      "ece_calibrated": 0.07424
+    }
+  },
+  "dev_oof_seed12345": [
+    {
+      "method": "sigmoid",
+      "brier_raw": 0.03171,
+      "brier_calibrated": 0.03593
+    },
+    {
+      "method": "isotonic",
+      "brier_raw": 0.03171,
+      "brier_calibrated": 0.02631
+    }
+  ]
+}

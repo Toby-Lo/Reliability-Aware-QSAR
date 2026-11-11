@@ -1,0 +1,59 @@
+{
+  "summary": [
+    {
+      "set": "Top 1000 (ranked candidates)",
+      "n": 1000,
+      "n_murcko_scaffolds": 833,
+      "scaffold_to_compound": 0.833,
+      "n_generic_frameworks": 469,
+      "scaffolds_shared_with_training": 0,
+      "maxT_train_mean": 0.2244540244328557,
+      "maxT_train_median": 0.2222222222222222,
+      "maxT_train_min": 0.16129032258064516,
+      "maxT_train_max": 0.3561643835616438,
+      "maxT_actives_mean": 0.2184606972823633,
+      "maxT_actives_median": 0.21568627450980393,
+      "frac_maxT_ge_0p85": 0.0,
+      "frac_maxT_ge_0p40": 0.0
+    },
+    {
+      "set": "Top 100 (docked)",
+      "n": 100,
+      "n_murcko_scaffolds": 95,
+      "scaffold_to_compound": 0.95,
+      "n_generic_frameworks": 54,
+      "scaffolds_shared_with_training": 0,
+      "maxT_train_mean": 0.21598558940525045,
+      "maxT_train_median": 0.21280217909431393,
+      "maxT_train_min": 0.17525773195876287,
+      "maxT_train_max": 0.32323232323232326,
+      "maxT_actives_mean": 0.20874873226125426,
+      "maxT_actives_median": 0.21212121212121213,
+      "frac_maxT_ge_0p85": 0.0,
+      "frac_maxT_ge_0p40": 0.0
+    },
+    {
+      "set": "Top 8 (MD shortlist)",
+      "n": 8,
+      "n_murcko_scaffolds": 7,
+      "scaffold_to_compound": 0.875,
+      "n_generic_frameworks": 5,
+      "scaffolds_shared_with_training": 0,
+      "maxT_train_mean": 0.20555515720838302,
+      "maxT_train_median": 0.20856227106227107,
+      "maxT_train_min": 0.18,
+      "maxT_train_max": 0.23863636363636365,
+      "maxT_actives_mean": 0.1995717655999914,
+      "maxT_actives_median": 0.20856227106227107,
+      "frac_maxT_ge_0p85": 0.0,
+      "frac_maxT_ge_0p40": 0.0
+    }
+  ],
+  "training_scaffolds": 187,
+  "top8_murcko": 7,
+  "top8_generic": 5,
+  "top8_constitutions": 6,
+  "top1000_largest_family": 6,
+  "top1000_n_scaffolds": 833,
+  "top1000_singletons": 711
+}

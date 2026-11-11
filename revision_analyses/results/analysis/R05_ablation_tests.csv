@@ -1,0 +1,3 @@
+comparison,mean_mcc_drop,ci_low,ci_high,p_ttest,p_wilcoxon
+Full descriptor panel (published) vs Size proxies removed,0.010442998928147684,-0.016442001770294323,0.039539331724443356,0.5026177748097526,0.625
+Full descriptor panel (published) vs Fingerprints only,0.026160968662264715,-0.017879564732398604,0.06752318950413233,0.28520451285381676,0.232421875

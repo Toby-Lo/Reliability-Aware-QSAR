@@ -1,0 +1,25 @@
+{
+  "pooled_best": {
+    "w1": 0.15,
+    "w2": 0.85,
+    "w3": 0.2,
+    "w4": 0.8,
+    "mean_oof_spearman": -0.4586746364559663
+  },
+  "published": {
+    "w1": 0.9,
+    "w2": 0.1,
+    "w3": 0.05,
+    "w4": 0.95,
+    "mean_oof_spearman": -0.45116538769541253
+  },
+  "n_within_0p02": 195,
+  "n_grid": 441,
+  "ext_spearman_oofsel_mean": -0.5709724549818725,
+  "ext_spearman_oofsel_sd": 0.058990632603941585,
+  "ext_spearman_pub_mean": -0.5865569499315552,
+  "ext_spearman_pub_sd": 0.04795571783768915,
+  "ext_pearson_pub_mean": -0.2719110275464704,
+  "ext_pearson_pub_sd": 0.12120296446603449,
+  "score_rank_agreement_mean": 0.9772357615194849
+}

@@ -1,0 +1,7 @@
+candidate_set,overlap_min_all,overlap_median_all,overlap_min_neighbourhood,overlap_median_neighbourhood
+Top 10,0.0,0.7,0.6,0.9
+Top 25,0.12,0.76,0.76,0.88
+Top 50,0.18,0.7,0.82,0.9
+Top 100,0.23,0.78,0.8,0.96
+Top 250,0.428,0.808,0.812,0.928
+Top 500,0.618,0.888,0.932,0.972

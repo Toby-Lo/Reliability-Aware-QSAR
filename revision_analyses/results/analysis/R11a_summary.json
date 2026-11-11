@@ -1,0 +1,16 @@
+{
+  "n_actives": 396,
+  "n_actives_with_decoys": 220,
+  "n_full": 220,
+  "n_decoys": 8209,
+  "n_pairs": 11000,
+  "tc_max": 0.35,
+  "windows": {
+    "MolWt": 25.0,
+    "MolLogP": 1.0,
+    "NumHDonors": 1.0,
+    "NumHAcceptors": 2.0,
+    "NumRotatableBonds": 2.0
+  },
+  "decoy_maxT_mean": 0.20523226748683843
+}
